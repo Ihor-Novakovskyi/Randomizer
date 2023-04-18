@@ -5,6 +5,7 @@ import './App.css';
 const useSettingsCalc = (value) => {
   const [counter, setCounter] = useState(value);
   useEffect(() => setCounter(value),[value]);
+
   return {
          incCounter: () => {
           if (counter < 50) {
@@ -62,11 +63,18 @@ export default function App(){
   useEffect(() => {
     fetch('https://www.random.org/integers/?num=2&min=-50&max=50&col=1&base=10&format=plain&rnd=new')
       .then(res => res.text())
-      .then(res => { const filterValues = new String(res).split('\n').map((el) =>{if (!isNaN(el)) return +el}).filter((el) => el !== 0);
+      .then(res => { 
+        const filterValues = new String(res)
+          .split('\n')
+          .map((el) => {
+            if(!isNaN(el)) return +el})
+          .filter((el) => el !== 0);
+
         setValue_1(filterValues[0]);
         setValue_2(filterValues[1]);
       })
   },[])
+
   return (
     <>
       <Counter counter={value_1}/>
